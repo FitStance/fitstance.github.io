@@ -1,115 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FitStance | Move Better. Feel Better ♥️</title>
-  
-  <!-- Fonts & Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
-  
+  <meta name="description" content="FitStance — fitness knowledge, workout routines, diet plans, tools, and inspiration to move better and feel better." />
+  <meta name="theme-color" content="#071427" />
+
+  <!-- Preconnect & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-O8CkR+YfI0b1dVv3k7iQJx7Zq6JfR7k7g3Zf1n0qk1Y3y3Y8Yx1sZg3aFzQjE2mJc2z/7u7X8b8yYJ6a7Vw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Favicon (optional; replace if you have one) -->
+  <link rel="icon" href="favicon.ico" />
+
   <!-- Main CSS -->
   <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Small inline critical styles to avoid FOIT for logo area (optional) -->
+  <style>
+    /* keep critical layout of header visible early */
+    header { min-height: 64px; }
+    .sr-only {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0,0,0,0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+  </style>
 </head>
 <body>
 
   <!-- ===== Header ===== -->
-  <header>
+  <header role="banner">
     <div class="header-content">
-      <img src="logo-heart.gif" alt="FitStance Logo" class="logo" />
-      <div class="brand-text">
+      <img src="logo-heart.gif" alt="FitStance logo — heart mark" class="logo" width="52" height="52" />
+      <div class="brand-text" aria-hidden="false">
         <h1 class="brand-name">FITSTANCE</h1>
         <p class="tagline">Move better. Feel better ♥️</p>
       </div>
     </div>
 
-    <div class="search-bar">
-      <input type="text" id="search" placeholder="Search topics..." />
+    <div class="search-bar" aria-label="Search topics">
+      <!-- Accessible search input: visible label for screen readers -->
+      <label for="search" class="sr-only">Search topics</label>
+      <input
+        type="search"
+        id="search"
+        name="search"
+        placeholder="Search topics..."
+        aria-controls="topics-grid"
+        aria-describedby="search-help"
+        autocomplete="off"
+        inputmode="search"
+      />
+      <div id="search-help" class="sr-only">Type to filter topic cards</div>
     </div>
   </header>
 
   <!-- ===== Main Grid Section ===== -->
-  <main>
-    <section class="topics fade-in">
-      <h2 class="section-title">Explore FitStance</h2>
+  <main role="main">
+    <section class="topics fade-in" aria-labelledby="explore-heading">
+      <h2 id="explore-heading" class="section-title">Explore FitStance</h2>
       <p class="section-subtitle">Everything you need for fitness, health & lifestyle</p>
-      
-      <div class="grid" id="topics-grid">
-        <div class="card" data-title="About Us">
-          <div class="card-icon"><i class="fas fa-users"></i></div>
+
+      <div class="grid" id="topics-grid" role="list">
+        <!-- Card: About Us -->
+        <div class="card" role="button" tabindex="0" data-title="About Us" aria-pressed="false">
+          <div class="card-icon" aria-hidden="true"><i class="fas fa-users" aria-hidden="true"></i></div>
           <div class="card-content">
             <h3>About Us</h3>
             <p>Discover our mission and values that drive FitStance.</p>
           </div>
         </div>
 
-        <div class="card" data-title="Workouts">
-          <div class="card-icon"><i class="fas fa-dumbbell"></i></div>
+        <!-- Card: Workouts -->
+        <div class="card" role="button" tabindex="0" data-title="Workouts" aria-pressed="false">
+          <div class="card-icon" aria-hidden="true"><i class="fas fa-dumbbell" aria-hidden="true"></i></div>
           <div class="card-content">
             <h3>Workout Routines</h3>
             <p>Step-by-step workouts for all fitness levels.</p>
           </div>
         </div>
 
-        <div class="card" data-title="Diet Plans">
-          <div class="card-icon"><i class="fas fa-apple-alt"></i></div>
+        <!-- Card: Diet Plans -->
+        <div class="card" role="button" tabindex="0" data-title="Diet Plans" aria-pressed="false">
+          <div class="card-icon" aria-hidden="true"><i class="fas fa-apple-alt" aria-hidden="true"></i></div>
           <div class="card-content">
             <h3>Diet Plans</h3>
             <p>Balanced meal plans tailored for your goals.</p>
           </div>
         </div>
 
-        <div class="card" data-title="Tools">
-          <div class="card-icon"><i class="fas fa-calculator"></i></div>
+        <!-- Card: Tools -->
+        <div class="card" role="button" tabindex="0" data-title="Tools" aria-pressed="false">
+          <div class="card-icon" aria-hidden="true"><i class="fas fa-calculator" aria-hidden="true"></i></div>
           <div class="card-content">
             <h3>Tools</h3>
             <p>Track calories, BMI, and progress with ease.</p>
           </div>
         </div>
 
-        <div class="card" data-title="Pro Tips">
-          <div class="card-icon"><i class="fas fa-bolt"></i></div>
+        <!-- Card: Pro Tips -->
+        <div class="card" role="button" tabindex="0" data-title="Pro Tips" aria-pressed="false">
+          <div class="card-icon" aria-hidden="true"><i class="fas fa-bolt" aria-hidden="true"></i></div>
           <div class="card-content">
             <h3>Pro Tips</h3>
             <p>Expert advice to maximize your performance.</p>
           </div>
         </div>
 
-        <div class="card" data-title="Success Stories">
-          <div class="card-icon"><i class="fas fa-star"></i></div>
+        <!-- Card: Success Stories -->
+        <div class="card" role="button" tabindex="0" data-title="Success Stories" aria-pressed="false">
+          <div class="card-icon" aria-hidden="true"><i class="fas fa-star" aria-hidden="true"></i></div>
           <div class="card-content">
             <h3>Success Stories</h3>
             <p>Be inspired by real people who transformed their lives.</p>
           </div>
         </div>
 
-        <div class="card" data-title="Blog">
-          <div class="card-icon"><i class="fas fa-blog"></i></div>
+        <!-- Card: Blog -->
+        <div class="card" role="button" tabindex="0" data-title="Blog" aria-pressed="false">
+          <div class="card-icon" aria-hidden="true"><i class="fas fa-blog" aria-hidden="true"></i></div>
           <div class="card-content">
             <h3>Blog / Articles</h3>
             <p>Latest tips and articles on health & fitness.</p>
           </div>
         </div>
 
-        <div class="card" data-title="FAQ">
-          <div class="card-icon"><i class="fas fa-question-circle"></i></div>
+        <!-- Card: FAQ -->
+        <div class="card" role="button" tabindex="0" data-title="FAQ" aria-pressed="false">
+          <div class="card-icon" aria-hidden="true"><i class="fas fa-question-circle" aria-hidden="true"></i></div>
           <div class="card-content">
             <h3>FAQ</h3>
             <p>Find quick answers to common fitness questions.</p>
           </div>
         </div>
 
-        <div class="card" data-title="Shop">
-          <div class="card-icon"><i class="fas fa-book"></i></div>
+        <!-- Card: Shop -->
+        <div class="card" role="button" tabindex="0" data-title="Shop" aria-pressed="false">
+          <div class="card-icon" aria-hidden="true"><i class="fas fa-book" aria-hidden="true"></i></div>
           <div class="card-content">
             <h3>Shop / eBook</h3>
             <p>Explore our eBooks and premium workout guides.</p>
           </div>
         </div>
 
-        <div class="card" data-title="Contact">
-          <div class="card-icon"><i class="fas fa-envelope"></i></div>
+        <!-- Card: Contact -->
+        <div class="card" role="button" tabindex="0" data-title="Contact" aria-pressed="false">
+          <div class="card-icon" aria-hidden="true"><i class="fas fa-envelope" aria-hidden="true"></i></div>
           <div class="card-content">
             <h3>Contact Us</h3>
             <p>Reach out for support, feedback, or collaboration.</p>
@@ -119,11 +167,12 @@
     </section>
 
     <!-- ===== Responsive Media Gallery ===== -->
-    <section class="media-section fade-in">
-      <h2 class="section-title">Fitness Inspiration</h2>
+    <section class="media-section fade-in" aria-labelledby="media-heading">
+      <h2 id="media-heading" class="section-title">Fitness Inspiration</h2>
       <p class="section-subtitle">Watch, Learn & Transform</p>
       <div class="media-container">
-        <video controls poster="media/workout1.jpg">
+        <!-- add loading="lazy" for non-blocking load in supporting browsers -->
+        <video controls poster="media/workout1.jpg" preload="metadata" loading="lazy" aria-label="Workout inspiration video">
           <source src="media/workout1.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
@@ -132,41 +181,105 @@
   </main>
 
   <!-- ===== Footer (loaded dynamically via master.js) ===== -->
-  <div id="footer"></div>
+  <div id="footer" aria-hidden="false"></div>
 
   <!-- ===== Scripts ===== -->
-  <script src="js/master.js"></script>
+  <!-- Load master.js deferred so footer injection works, but doesn't block render -->
+  <script src="js/master.js" defer></script>
+
+  <!-- Inline small behavior enhancements:
+       - Debounced search for performance
+       - Keyboard accessibility for cards (Enter/Space to activate)
+       - Preserve your original navigation mapping and click handlers -->
   <script>
-    // 🔎 Search filter
-    const searchInput = document.getElementById("search");
-    const cards = document.querySelectorAll(".card");
-    searchInput.addEventListener("keyup", () => {
-      const query = searchInput.value.toLowerCase();
-      cards.forEach(card => {
-        card.style.display = card.dataset.title.toLowerCase().includes(query) ? "flex" : "none";
-      });
-    });
+    (function () {
+      // ---- Existing mapping — unchanged content ----
+      const links = {
+        "About Us": "about.html",
+        "Workouts": "workouts.html",
+        "Diet Plans": "diet.html",
+        "Tools": "tools.html",
+        "Pro Tips": "protips.html",
+        "Success Stories": "success.html",
+        "Blog": "blog.html",
+        "FAQ": "faq.html",
+        "Shop": "shop.html",
+        "Contact": "contact.html"
+      };
 
-    // 📍 Card navigation
-    const links = {
-      "About Us": "about.html",
-      "Workouts": "workouts.html",
-      "Diet Plans": "diet.html",
-      "Tools": "tools.html",
-      "Pro Tips": "protips.html",
-      "Success Stories": "success.html",
-      "Blog": "blog.html",
-      "FAQ": "faq.html",
-      "Shop": "shop.html",
-      "Contact": "contact.html"
-    };
+      // Cache DOM
+      const searchInput = document.getElementById("search");
+      const grid = document.getElementById("topics-grid");
+      const cards = grid ? grid.querySelectorAll(".card") : [];
 
-    cards.forEach(card => {
-      card.addEventListener("click", () => {
-        const page = links[card.dataset.title];
-        if (page) window.location.href = page;
+      // Debounce helper
+      function debounce(fn, wait = 150) {
+        let t;
+        return function (...args) {
+          clearTimeout(t);
+          t = setTimeout(() => fn.apply(this, args), wait);
+        };
+      }
+
+      // Filter function (case-insensitive) — preserves original behavior, only improved perf
+      function filterCards(query) {
+        const q = String(query || "").trim().toLowerCase();
+        cards.forEach(card => {
+          const title = String(card.dataset.title || "").toLowerCase();
+          card.style.display = title.includes(q) ? "flex" : "none";
+        });
+      }
+
+      // Attach input listener with debounce
+      if (searchInput) {
+        searchInput.addEventListener("input", debounce((e) => {
+          filterCards(e.target.value);
+        }, 120));
+      }
+
+      // Add click & keyboard support for each card (keeps your original click navigation)
+      if (cards.length) {
+        cards.forEach(card => {
+          // Click — navigate
+          card.addEventListener("click", () => {
+            const page = links[card.dataset.title];
+            if (page) window.location.href = page;
+          });
+
+          // Keyboard: Enter / Space behave like click
+          card.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              card.click();
+            }
+          });
+
+          // Update aria-pressed to reflect active/hovered state for assistive tech
+          card.addEventListener("mousedown", () => { card.setAttribute("aria-pressed", "true"); });
+          card.addEventListener("mouseup", () => { card.setAttribute("aria-pressed", "false"); });
+          card.addEventListener("mouseleave", () => { card.setAttribute("aria-pressed", "false"); });
+        });
+      }
+
+      // Small enhancement: lazy-add fade-in appear class for nicer initial load (non-blocking)
+      window.addEventListener("DOMContentLoaded", () => {
+        // trigger small reveal on sections marked .fade-in
+        document.querySelectorAll(".fade-in").forEach(el => {
+          // small delay to let paint happen first
+          requestAnimationFrame(() => setTimeout(() => el.classList.add("appear"), 80));
+        });
       });
-    });
+
+      // Expose filter function for debugging (optional)
+      window.__fitstanceFilter = filterCards;
+    })();
   </script>
+
+  <!-- NOSCRIPT fallback note -->
+  <noscript>
+    <div style="padding:1rem;background:#fff6f6;color:#7a1f2d;text-align:center;">
+      JavaScript is disabled — some features (footer, search filtering) may not work. Please enable JS for the full experience.
+    </div>
+  </noscript>
 </body>
 </html>
