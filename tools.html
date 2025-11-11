@@ -1,304 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Fitness Tools & Calculators | FitStance</title>
+  <meta name="description" content="Calculate BMR, BMI, TDEE, water intake and macros. FitStance tools are beginner-friendly and help you plan nutrition and training." />
 
   <!-- Fonts & Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="css/style.css">
-
-  <!-- Inline Optimized CSS -->
-  <style>
-    body { background: #fafafa; }
-
-    .tools-page {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    .page-image img {
-      width: 100%; height: auto; display: block;
-      border-radius: 16px;
-      margin: 1.5rem 0;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    .intro { margin-bottom: 2.5rem; text-align: left; }
-    .intro h2 {
-      font-size: 2.4rem;
-      color: #e63946;
-      font-weight: 700;
-      margin-bottom: 0.8rem;
-      line-height: 1.3;
-      animation: fadeDown 0.8s ease-in-out;
-    }
-    .intro p {
-      color: #444; font-size: 1.05rem;
-      line-height: 1.7; margin-bottom: 0.6rem;
-    }
-
-    .fitness-form {
-      background: #fff; padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2.5rem;
-      animation: fadeUp 0.8s ease-in-out;
-      border: 1px solid #f1f1f1;
-    }
-    .fitness-form h3 {
-      font-size: 1.8rem; font-weight: 700;
-      margin-bottom: 1.5rem; color: #222;
-      text-align: center;
-    }
-    .form-group { margin-bottom: 1.2rem; }
-    .form-group label {
-      font-weight: 600; display: block;
-      margin-bottom: 0.4rem; color: #333;
-    }
-    .form-group input,
-    .form-group select {
-      width: 100%; padding: 0.75rem;
-      border: 1px solid #ddd; border-radius: 10px;
-      font-size: 1rem; transition: 0.3s ease;
-      background: #fafafa;
-    }
-    .form-group input:focus,
-    .form-group select:focus {
-      outline: none; border-color: #e63946;
-      background: #fff;
-      box-shadow: 0 0 10px rgba(230, 57, 70, 0.25);
-    }
-
-    .calculate-btn {
-      display: block; margin: 1.2rem auto 0;
-      background: #e63946; color: #fff;
-      font-size: 1.1rem; padding: 0.85rem 2rem;
-      border: none; border-radius: 25px;
-      cursor: pointer; font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 6px 15px rgba(230, 57, 70, 0.25);
-    }
-    .calculate-btn:hover {
-      background: #d62839;
-      transform: translateY(-2px);
-    }
-
-    .results {
-      background: #fff; padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
-      display: none; opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.5s ease;
-      border: 1px solid #f1f1f1;
-    }
-    .results.show {
-      display: block; opacity: 1;
-      transform: translateY(0);
-      animation: fadeUp 0.7s ease-in-out;
-    }
-    .results h3 {
-      font-size: 1.6rem;
-      margin-bottom: 1.5rem;
-      color: #e63946;
-      text-align: center; font-weight: 700;
-    }
-
-    .result-row {
-      display: flex; justify-content: space-between;
-      padding: 0.9rem 0;
-      border-bottom: 1px solid #eee;
-      font-size: 1rem; align-items: center;
-    }
-    .result-row strong { font-weight: 600; color: #333; }
-    .result-row .value-wrap { text-align: right; font-size: 1rem; }
-    .result-value { font-weight: 700; display: inline-block; min-width: 70px; }
-    .unit { display: inline-block; margin-left: 6px; color: #666; font-weight: 500; }
-
-    .bmi-normal { color: #2ecc71; font-weight: bold; }
-    .bmi-warning { color: #f39c12; font-weight: bold; }
-    .bmi-danger  { color: #e74c3c; font-weight: bold; }
-
-    .macros { margin-top: 1.8rem; border-top: 2px solid #f0f0f0; padding-top: 1.2rem; }
-    .macros h4 {
-      margin-bottom: 0.8rem;
-      font-weight: 600; font-size: 1.2rem;
-      color: #333; text-align: center;
-    }
-
-    .result-actions {
-      display: flex; gap: 1rem;
-      justify-content: center;
-      margin-top: 1.5rem; flex-wrap: wrap;
-    }
-    .btn-action {
-      display: inline-flex; align-items: center;
-      gap: 0.5rem; padding: 0.75rem 1.2rem;
-      border: none; background: #e63946;
-      color: #fff; border-radius: 25px;
-      cursor: pointer; font-size: 0.95rem;
-      font-weight: 600; transition: .25s;
-      box-shadow: 0 4px 12px rgba(230,57,70,0.25);
-    }
-    .btn-action:hover { background: #d62839; transform: translateY(-2px); }
-    .btn-outline { background: #fff; color: #e63946; border: 2px solid #e63946; }
-    .btn-outline:hover { background: #fff0f0; }
-
-    .cta-buttons { text-align: center; margin: 3rem 0 2rem; }
-    .btn {
-      display: inline-block; margin: 0.5rem;
-      padding: 0.85rem 1.6rem; border: none;
-      background: #e63946; color: white;
-      border-radius: 25px; cursor: pointer;
-      font-size: 1rem; font-weight: 600;
-      text-decoration: none; transition: 0.3s;
-    }
-    .btn:hover { background: #d62839; transform: translateY(-2px); }
-    .btn-home { background: #333; }
-    .btn-home:hover { background: #000; }
-
-    @keyframes fadeIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeDown { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
-
-    @media print {
-      body * { visibility: hidden !important; }
-      .results, .results * { visibility: visible !important; }
-      .results { position: absolute; left: 0; top: 0; width: 100%; box-shadow: none; }
-    }
-    @media (max-width: 768px) {
-      .intro h2 { font-size: 1.9rem; }
-      .results, .fitness-form { padding: 1.2rem; }
-      .result-row { flex-wrap: wrap; }
-      .result-row strong { width: 100%; margin-bottom: 0.3rem; }
-      .result-row .value-wrap { width: 100%; text-align: left; }
-      .unit { display: block; margin: 2px 0 0 0; }
-    }
-  </style>
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <!-- Header -->
+
+  <!-- ===== Header (consistent site header) ===== -->
   <header>
-    <img src="logo-heart.gif" alt="FitStance Logo" class="logo" />
-    <h1 class="brand-name">FITSTANCE</h1>
-    <p class="tagline">Move better. Feel better ♥️</p>
+    <div class="header-inner container" role="banner">
+      <div class="brand" aria-hidden="false">
+        <div class="logo" aria-hidden="true">
+          <img src="logo-heart.gif" alt="FitStance logo" style="width:38px;height:38px;border-radius:8px;">
+        </div>
+        <div style="display:flex;flex-direction:column;line-height:1;">
+          <div class="brand-name">FITSTANCE</div>
+          <div class="tagline" style="font-size:0.78rem;color:rgba(255,255,255,0.88);">Move better. Feel better ♥️</div>
+        </div>
+      </div>
+
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" style="background:transparent;border:none;color:#fff;font-size:1.25rem;">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="nav" role="navigation" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="workouts.html">Workouts</a>
+        <a href="diet.html">Diet</a>
+        <a href="tools.html">Tools</a>
+        <a href="protips.html">Pro Tips</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="search-bar" style="margin-left:12px;">
+        <input id="search" type="search" placeholder="Search topics..." aria-label="Search topics" />
+      </div>
+    </div>
   </header>
 
-  <!-- Hero -->
-  <div class="page-image">
-    <img src="tools-hero.jpg" alt="Fitness Tools" />
-  </div>
+  <!-- ===== HERO ===== -->
+  <main>
+    <section class="hero container fade-in" aria-labelledby="tools-hero-title" style="margin-top:1.25rem;">
+      <div class="hero-left">
+        <h1 id="tools-hero-title">Fitness Calculators — fast, simple and actionable</h1>
+        <p>Find your BMR, BMI, TDEE, recommended water intake and macronutrient split. Use these numbers to pick the right diet plan and training volume for your goal.</p>
+        <div class="hero-ctas" role="group" aria-label="Tools actions">
+          <a class="btn" href="diet.html">See Diet Plans</a>
+          <a class="btn secondary" href="workouts.html">Explore Workouts</a>
+        </div>
+      </div>
 
-  <!-- Tools Section -->
-  <section class="tools-page">
-    <div class="intro">
-      <h2>Fitness Calculators</h2>
-      <p>Calculate your <strong>BMR</strong>, <strong>BMI</strong>, <strong>TDEE</strong>, <strong>water intake</strong>, and <strong>macronutrients</strong> in one place.</p>
-      <p>These numbers help you understand how much to eat and drink according to your goals. Once you calculate them, check our <a href="diet.html" style="color:#e63946; font-weight:600;">Diet Plans</a> for structured meal plans.</p>
-    </div>
-
-    <!-- Calculator Form -->
-    <form id="fitness-form" class="fitness-form">
-      <h3><i class="fas fa-calculator"></i> Fitness Calculator</h3>
-      <div class="form-group">
-        <label for="age">Age</label>
-        <input type="number" id="age" name="age" placeholder="Enter your age" required>
+      <div class="hero-right">
+        <div class="hero-card" aria-hidden="true" style="max-width:420px;">
+          <picture>
+            <source srcset="tools-hero.webp" type="image/webp">
+            <img src="tools-hero.jpg" alt="Fitness Tools" loading="lazy" style="border-radius:12px;">
+          </picture>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="gender">Gender</label>
-        <select id="gender" name="gender" required>
-          <option value="">Select gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Height</label>
-        <input type="number" id="heightFt" name="heightFt" placeholder="Feet" required>
-        <input type="number" id="heightIn" name="heightIn" placeholder="Inches" required>
-      </div>
-      <div class="form-group">
-        <label>Weight</label>
-        <input type="number" id="weightKg" name="weightKg" placeholder="Weight in kg" required>
-      </div>
-      <div class="form-group">
-        <label for="activity">Activity Level</label>
-        <select id="activity" name="activity" required>
-          <option value="">Select activity</option>
-          <option value="1.2">Sedentary</option>
-          <option value="1.375">Lightly active</option>
-          <option value="1.55">Moderately active</option>
-          <option value="1.725">Very active</option>
-          <option value="1.9">Extremely active</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="goal">Goal</label>
-        <select id="goal" name="goal" required>
-          <option value="">Select goal</option>
-          <option value="maintain">Maintain</option>
-          <option value="lose">Lose Weight</option>
-          <option value="gain">Gain Weight</option>
-        </select>
-      </div>
-      <button type="submit" class="calculate-btn">Calculate</button>
-    </form>
-
-    <!-- Results -->
-    <div class="results">
-      <h3><i class="fas fa-chart-line"></i> Your Results</h3>
-      <div class="result-row">
-        <strong>BMR:</strong>
-        <div class="value-wrap"><span class="result-value" id="bmr">--</span> <span class="unit">kcal/day</span></div>
-      </div>
-      <div class="result-row">
-        <strong>BMI:</strong>
-        <div class="value-wrap"><span class="result-value" id="bmi">--</span> (<span id="bmi-category">--</span>)</div>
-      </div>
-      <div class="result-row">
-        <strong>TDEE:</strong>
-        <div class="value-wrap"><span class="result-value" id="tdee">--</span> <span class="unit">kcal/day</span></div>
-      </div>
-      <div class="result-row">
-        <strong>Water Intake:</strong>
-        <div class="value-wrap"><span class="result-value" id="water">--</span> <span class="unit">L/day</span></div>
-      </div>
-      <div class="macros">
-        <h4><i class="fas fa-utensils"></i> Macronutrients</h4>
-        <div class="result-row"><strong>Protein:</strong><div class="value-wrap"><span class="result-value" id="protein">--</span> <span class="unit">g</span></div></div>
-        <div class="result-row"><strong>Carbs:</strong><div class="value-wrap"><span class="result-value" id="carbs">--</span> <span class="unit">g</span></div></div>
-        <div class="result-row"><strong>Fats:</strong><div class="value-wrap"><span class="result-value" id="fats">--</span> <span class="unit">g</span></div></div>
-      </div>
-      <div class="result-actions">
-        <button id="copyResults" class="btn-action btn-outline"><i class="fa-regular fa-clipboard"></i> Copy</button>
-        <button id="shareResults" class="btn-action"><i class="fa-solid fa-share-nodes"></i> Share</button>
-        <button id="pdfResults" class="btn-action"><i class="fa-regular fa-file-pdf"></i> PDF</button>
-      </div>
-    </div>
-
-    <!-- CTA -->
-    <section class="cta-buttons">
-      <a href="diet.html" class="btn"><i class="fas fa-utensils"></i> View Diet Plans</a>
-      <a href="index.html" class="btn btn-home"><i class="fas fa-home"></i> Back to Home</a>
     </section>
-  </section>
 
-  <!-- Footer -->
+    <!-- ===== Tools Section ===== -->
+    <section class="tools-page container fade-in" style="margin-top:1.25rem; max-width:1100px;">
+      <div class="intro">
+        <h2 style="margin-bottom:.5rem;">Fitness Calculators</h2>
+        <p class="section-subtitle">Calculate your <strong>BMR</strong>, <strong>BMI</strong>, <strong>TDEE</strong>, <strong>water intake</strong>, and suggested macronutrients.</p>
+        <p style="color:var(--muted);">Enter your details below — results are generated on submit. The calculators are beginner-friendly and designed to help you choose the right diet plan.</p>
+      </div>
+
+      <!-- ===== Calculator Form (IDs preserved: master.js uses them) ===== -->
+      <form id="fitness-form" class="form-card" aria-label="Fitness calculator">
+        <h3 style="text-align:center;margin-bottom:1rem;"><i class="fas fa-calculator"></i> Fitness Calculator</h3>
+
+        <div class="form-row" style="gap:1rem;flex-wrap:wrap;">
+          <div class="form-group" style="min-width:160px;flex:1;">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" placeholder="Age" required />
+          </div>
+
+          <div class="form-group" style="min-width:160px;flex:1;">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+              <option value="">Select</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row" style="gap:1rem;flex-wrap:wrap;margin-top:.6rem;">
+          <div class="form-group" style="flex:1;min-width:120px;">
+            <label>Height — Feet</label>
+            <input type="number" id="heightFt" name="heightFt" placeholder="Feet" />
+          </div>
+          <div class="form-group" style="flex:1;min-width:120px;">
+            <label>Height — Inches</label>
+            <input type="number" id="heightIn" name="heightIn" placeholder="Inches" />
+          </div>
+          <div class="form-group" style="flex:1;min-width:140px;">
+            <label>Weight (kg)</label>
+            <input type="number" id="weightKg" name="weightKg" placeholder="Weight in kg" required />
+          </div>
+        </div>
+
+        <div class="form-row" style="margin-top:.6rem;">
+          <div class="form-group" style="flex:1;">
+            <label for="activity">Activity Level</label>
+            <select id="activity" name="activity" required>
+              <option value="">Select activity</option>
+              <option value="1.2">Sedentary</option>
+              <option value="1.375">Lightly active</option>
+              <option value="1.55">Moderately active</option>
+              <option value="1.725">Very active</option>
+              <option value="1.9">Extremely active</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="flex:1;">
+            <label for="goal">Goal</label>
+            <select id="goal" name="goal" required>
+              <option value="">Select goal</option>
+              <option value="maintain">Maintain</option>
+              <option value="lose">Lose Weight</option>
+              <option value="gain">Gain Weight</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:1rem;display:flex;gap:.75rem;flex-wrap:wrap;">
+          <button type="submit" class="calculate-btn">Calculate</button>
+          <button type="button" class="btn btn-outline" onclick="document.getElementById('fitness-form').reset(); document.querySelector('.results')?.classList.remove('show');">Reset</button>
+        </div>
+      </form>
+
+      <!-- ===== Results (IDs preserved) ===== -->
+      <div class="results" aria-live="polite">
+        <h3><i class="fas fa-chart-line"></i> Your Results</h3>
+
+        <div class="result-row">
+          <strong>BMR:</strong>
+          <div class="value-wrap"><span class="result-value" id="bmr">--</span> <span class="unit">kcal/day</span></div>
+        </div>
+
+        <div class="result-row">
+          <strong>BMI:</strong>
+          <div class="value-wrap"><span class="result-value" id="bmi">--</span> (<span id="bmi-category">--</span>)</div>
+        </div>
+
+        <div class="result-row">
+          <strong>TDEE:</strong>
+          <div class="value-wrap"><span class="result-value" id="tdee">--</span> <span class="unit">kcal/day</span></div>
+        </div>
+
+        <div class="result-row">
+          <strong>Water Intake:</strong>
+          <div class="value-wrap"><span class="result-value" id="water">--</span> <span class="unit">L/day</span></div>
+        </div>
+
+        <div class="macros">
+          <h4><i class="fas fa-utensils"></i> Macronutrients</h4>
+          <div class="result-row"><strong>Protein:</strong><div class="value-wrap"><span class="result-value" id="protein">--</span> <span class="unit">g</span></div></div>
+          <div class="result-row"><strong>Carbs:</strong><div class="value-wrap"><span class="result-value" id="carbs">--</span> <span class="unit">g</span></div></div>
+          <div class="result-row"><strong>Fats:</strong><div class="value-wrap"><span class="result-value" id="fats">--</span> <span class="unit">g</span></div></div>
+        </div>
+
+        <div class="result-actions" style="margin-top:1rem;">
+          <button id="copyResults" class="btn-action btn-outline"><i class="fa-regular fa-clipboard"></i> Copy</button>
+          <button id="shareResults" class="btn-action"><i class="fa-solid fa-share-nodes"></i> Share</button>
+          <button id="pdfResults" class="btn-action"><i class="fa-regular fa-file-pdf"></i> PDF</button>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <section class="cta-buttons" style="margin-top:2rem;">
+        <a href="diet.html" class="btn"><i class="fas fa-utensils"></i> View Diet Plans</a>
+        <a href="index.html" class="btn btn-home"><i class="fas fa-home"></i> Back to Home</a>
+      </section>
+    </section>
+  </main>
+
+  <!-- ===== Footer (loaded by master.js) ===== -->
   <div id="footer"></div>
 
-  <!-- Master JS -->
-  <script src="js/master.js"></script>
+  <!-- ===== Back to top (master.js will handle) ===== -->
+  <button class="back-to-top" aria-label="Back to top" title="Back to top" type="button">
+    <i class="fas fa-chevron-up"></i>
+  </button>
 
-  <!-- Page helpers (Copy / Share / PDF) -->
+  <!-- ===== Scripts ===== -->
+  <script src="js/master.js" defer></script>
+
+  <!-- Page helpers (Copy / Share / PDF) — these use the DOM only and do not change calculations -->
   <script>
     (function () {
       const resultsEl = document.querySelector('.results');
